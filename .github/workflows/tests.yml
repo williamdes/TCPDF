@@ -11,7 +11,6 @@ jobs:
     test-php:
         name: Test on php ${{ matrix.php-version }} and ${{ matrix.os }}
         runs-on: ${{ matrix.os }}
-        continue-on-error: ${{ matrix.experimental }}
         strategy:
             fail-fast: false
             matrix:
@@ -48,6 +47,7 @@ jobs:
             - name: Install dependencies
               run: composer install --no-interaction
             - name: Run php tests
+              continue-on-error: ${{ matrix.experimental }}
               run: ./tests/launch.sh
             - name: Send coverage
               uses: codecov/codecov-action@v1
